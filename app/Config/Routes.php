@@ -65,6 +65,7 @@ $routes->post('/asyla/save_testimoni/(:num)', 'AsylaUmrah::save_testimoni/$1', [
 // // ROUTE KHUSUS ADMIN
 // // route data jemaah
 $routes->get('/admin/data_jemaah', 'AdminController::data_jemaah', ['filter' => 'role:admin']);
+$routes->get('/admin/jemaah/details/(:num)', 'AdminController::details_jemaah/$1', ['filter' => 'role:admin']);
 $routes->delete('/admin/jemaah/(:num)', 'AdminController::delete_jemaah/$1', ['filter' => 'role:admin']);
 $routes->post('/admin/jemaah/update/(:num)', 'AdminController::update_jemaah/$1', ['filter' => 'role:admin']);
 

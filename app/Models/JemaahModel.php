@@ -45,6 +45,7 @@ class JemaahModel extends Model
         $builder->select('tb_jemaah.*, tb_paket.nama as nama_paket, tb_paket.tipe, tb_paket.tgl_berangkat, tb_paket.tgl_kembali');
         $builder->join('tb_paket', 'tb_paket.id = tb_jemaah.id_paket');
 
+
         if ($bulan) {
             $builder->where("DATE_FORMAT(tb_jemaah.created_at, '%M')", $bulan);
         }
@@ -65,17 +66,28 @@ class JemaahModel extends Model
         return $query->getResult();
     }
 
-
+    public function getJemaahDetails($id)
+    {
+        $builder = $this->db->table('tb_jemaah');
+        $builder->join('tb_paket', 'tb_paket.id = tb_jemaah.id_paket');
+        $builder->select('tb_jemaah.*, tb_paket.nama as nama_paket, tb_paket.tipe, tb_paket.harga, tb_paket.maskapai, tb_paket.mekkah, tb_paket.madinah, tb_paket.itenerary, tb_paket.tgl_berangkat, tb_paket.tgl_kembali');
+        $builder->where('tb_jemaah.id', $id);
+        $result = $builder->get()->getRow();
+        return $result;
+    }
 
 
     public function getJemaahWithPaketHarga($userId)
     {
         $builder = $this->db->table('tb_jemaah');
-        $builder = $this->join('tb_paket', 'tb_paket.id = tb_jemaah.id_paket');
-        $builder = $this->select('tb_jemaah.*, tb_paket.nama as nama_paket, tb_paket.tipe, tb_paket.harga');
-        $builder = $this->where('id_user', $userId)->first();
-        return $builder;
+        $builder->join('tb_paket', 'tb_paket.id = tb_jemaah.id_paket');
+        $builder->join('tb_pembayaran', 'tb_pembayaran.id_user = tb_jemaah.id_user', 'left'); // Gunakan left join jika pembayaran mungkin tidak ada
+        $builder->select('tb_jemaah.*, tb_paket.nama as nama_paket, tb_paket.tipe, tb_paket.harga, tb_pembayaran.sisa_bayar, tb_pembayaran.harga_paket,tb_pembayaran.jml_bayar');
+        $builder->where('tb_jemaah.id_user', $userId);
+        $result = $builder->get()->getRow();
+        return $result;
     }
+
 
     public function getJemaahWithPaketBayar()
     {

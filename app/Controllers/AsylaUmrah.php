@@ -64,7 +64,9 @@ class AsylaUmrah extends BaseController
         $userId = user()->id;
         $data = [
             'title' => 'Pembayaran',
-            'profile' => $this->jemaahModel->getJemaahWithPaketHarga($userId)
+            'profile' => $this->jemaahModel->getJemaahWithPaketHarga($userId),
+            'pelunasan' => $this->pembayaranModel->pelunasan($userId)
+
         ];
         return view('pages/asyla/pembayaran', $data);
     }
@@ -383,45 +385,38 @@ class AsylaUmrah extends BaseController
         return redirect()->to('/asyla/profile_jemaah');
     }
 
+
     public function update_berkas($id)
     {
-        $filektp = $this->request->getFile('ktp');
-        $namefile1 = str_replace(' ', '_', $filektp->getName());
-        $filename1 = $namefile1 . '_' . time() . '.' . $filektp->getExtension();
-        $filektp->move(ROOTPATH . 'public/uploads', $filename1);
+        // Dapatkan data profil pengguna dari database
+        $profile = $this->jemaahModel->find($id);
 
-        $kk = $this->request->getFile('kartu_keluarga');
-        $namefile2 = str_replace(' ', '_', $kk->getName());
-        $filename2 = $namefile2 . '_' . time() . '.' . $kk->getExtension();
-        $kk->move(ROOTPATH . 'public/uploads', $filename2);
+        $allowed_types = ['ktp', 'kartu_keluarga', 'paspor', 'akta_kelahiran', 'buku_nikah'];
+        $file_names = [];
 
-        $paspor = $this->request->getFile('paspor');
-        $namefile3 = str_replace(' ', '_', $paspor->getName());
-        $filename3 = $namefile3 . '_' . time() . '.' . $paspor->getExtension();
-        $paspor->move(ROOTPATH . 'public/uploads', $filename3);
+        foreach ($allowed_types as $type) {
+            $file = $this->request->getFile($type);
+            if ($file->isValid()) {
+                $namefile = str_replace(' ', '_', $file->getName());
+                $filename = $namefile . '_' . time() . '.' . $file->getExtension();
+                $file->move(ROOTPATH . 'public/uploads', $filename);
+            } else {
+                // Jika tidak ada berkas yang diunggah, gunakan berkas yang ada di database
+                $filename = $profile[$type];
+            }
 
-        $buku = $this->request->getFile('buku_nikah');
-        $namefile4 = str_replace(' ', '_', $buku->getName());
-        $filename4 = $namefile4 . '_' . time() . '.' . $buku->getExtension();
-        $buku->move(ROOTPATH . 'public/uploads', $filename4);
+            $file_names[$type] = $filename;
+        }
 
-        $akte = $this->request->getFile('akta_kelahiran');
-        $namefile5 = str_replace(' ', '_', $akte->getName());
-        $filename5 = $namefile5 . '_' . time() . '.' . $akte->getExtension();
-        $akte->move(ROOTPATH . 'public/uploads', $filename5);
-
-        $this->jemaahModel->update($id, [
-            'ktp' => $filename1,
-            'kartu_keluarga' => $filename2,
-            'paspor' => $filename3,
-            'buku_nikah' => $filename4,
-            'akta_kelahiran' => $filename5,
-        ]);
+        // Update database dengan nama berkas yang sesuai
+        $this->jemaahModel->update($id, $file_names);
 
         session()->setFlashdata('pesan', 'Berkas Data Berhasil Diubah');
 
         return redirect()->to('/asyla/profile_jemaah');
     }
+
+
 
     public function upload_foto($id)
     {

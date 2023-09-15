@@ -29,6 +29,17 @@ class AdminController extends BaseController
         return view('pages/admin/jemaah/admin_data_jemaah', $data);
     }
 
+    public function details_jemaah($id)
+    {
+        $data = [
+            'title' => 'Admin Details Jemaah',
+            'judul' => 'Biodata Jemaah',
+            'profile' => $this->jemaahModel->getJemaahDetails($id)
+        ];
+        return view('pages/admin/jemaah/admin_details_jemaah', $data);
+    }
+
+
     public function delete_jemaah($id)
     {
         $this->jemaahModel->delete($id);
