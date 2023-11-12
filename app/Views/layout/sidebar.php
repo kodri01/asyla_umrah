@@ -14,6 +14,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
+            <?php if (in_groups('admin')) : ?>
             <!-- Nav Item - Dashboard -->
             <li class="nav-item <?php if ($title == 'Admin Dashboard') echo 'active'; ?>">
                 <a class="nav-link" href="/">
@@ -80,16 +81,48 @@
                 </div>
 
             </li>
+            <?php else : ?>
+            <li
+                class="nav-item <?php if ($title == 'Admin Data Jemaah' || $title == 'Direktur Data Jemaah') echo 'active'; ?>">
+                <a class="nav-link collapsed" href="/admin/data_jemaah" data-toggle="" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class=""></i>
+                    <span>DATA JEMAAH UMRAH</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+
+                </div>
+            </li>
+            <li
+                class="nav-item <?php if ($title == 'Admin Laporan Pembayaran' || $title == 'Admin Laporan Bulanan' || $title == 'Admin Laporan Tahunan' || $title == 'Direktur Laporan Pembayaran' || $title == 'Direktur Laporan Bulanan' || $title == 'Direktur Laporan Tahunan') echo 'active'; ?>">
+                <a class="nav-link collapsed " href="" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <span>LAPORAN</span>
+                </a>
+
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/admin/laporan_pembayaran">Pembayaran
+                            Jemaah</a>
+                        <a class="collapse-item" href="/admin/laporan_bulanan">Pendaftaran
+                            Perbulan</a>
+                        <a class="collapse-item" href="/admin/laporan_tahunan">Pendaftaran
+                            Pertahun</a>
+                    </div>
+                </div>
+
+            </li>
             <!-- <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded"></div>
             </div>
             </li> -->
+
+            <?php endif; ?>
             <li class="nav-item ">
                 <a class="nav-link" href="/logout">
                     <i class=""></i>
                     <span>LOGOUT</span></a>
             </li>
-
             <!-- Sidebar Toggler (Sidebar)
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>

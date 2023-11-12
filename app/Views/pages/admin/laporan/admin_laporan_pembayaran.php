@@ -31,13 +31,22 @@
             <?php foreach ($status as $p) : ?>
                 <tr>
                     <td><?= $no++ ?></td>
-                    <td class="text-capitalize"><?= $p->nama ?></td>
-                    <td class="text-capitalize"><?= $p->jns_kelamin ?></td>
+                    <td class="text-capitalize"><?= $p->nama_jemaah ?><br>
+                        <?php foreach ($rombongan as $rom) : ?>
+                            <?php if ($rom->id_jemaah == $p->id_user) : ?>
+                                <?= $rom->nama_anggota; ?><br>
+                            <?php else : ?>
+                                <p></p>
+                            <?php endif; ?>
+
+                        <?php endforeach; ?>
+                    </td>
+                    <td class="text-capitalize"><?= $p->jk_jemaah ?></td>
                     <td class="text-capitalize"><?= $p->tempat_lahir ?></td>
-                    <td><?php echo date('d F Y', strtotime($p->tgl_lahir)); ?></td>
+                    <td><?php echo date('d F Y', strtotime($p->tanggal_lahir)); ?></td>
                     <td class="text-capitalize"><?= $p->hp_jemaah ?></td>
                     <td><?= $p->tipe ?></td>
-                    <td>Rp. <?= number_format($p->harga, 0, ',', '.'); ?></td>
+                    <td>Rp. <?= number_format($p->harga_paket, 0, ',', '.'); ?></td>
                     <td>Rp. <?= number_format($p->jml_bayar, 0, ',', '.'); ?></td>
                     <td> <?php echo ($p->sisa_bayar == 0) ? "Rp. 0" : "Rp. " . number_format($p->sisa_bayar, 0, ',', '.'); ?>
                     <td>

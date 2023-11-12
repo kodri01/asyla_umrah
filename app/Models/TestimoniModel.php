@@ -14,7 +14,7 @@ class TestimoniModel extends Model
     public function getTestimoni()
     {
         $builder = $this->db->table('tb_testimoni');
-        $builder->select('tb_testimoni.*, tb_jemaah.id as id_jemaah, tb_jemaah.nama, tb_jemaah.foto');
+        $builder->select('tb_testimoni.*, tb_jemaah.id as id_jemaah, tb_jemaah.nama_jemaah, tb_jemaah.foto');
         $builder->join('tb_jemaah', 'tb_testimoni.id_user = tb_jemaah.id_user');
         $builder->where('tb_testimoni.deleted_at IS NULL');
         $query = $builder->get();

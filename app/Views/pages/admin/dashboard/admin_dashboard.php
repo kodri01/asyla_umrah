@@ -99,9 +99,17 @@
                                     <?php foreach ($status as $p) : ?>
                                         <tr>
                                             <td><?= $no++ ?></td>
-                                            <td class="text-capitalize"><?= $p->nama ?></td>
+                                            <td class="text-capitalize"><?= $p->nama_jemaah ?><br>
+                                                <?php foreach ($rombongan as $rom) : ?>
+                                                    <?php if ($rom->id_jemaah == $p->id_user) : ?>
+                                                        <?= $rom->nama_anggota; ?><br>
+                                                    <?php else : ?>
+                                                        <p></p>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            </td>
                                             <td><?= $p->tipe ?></td>
-                                            <td>Rp. <?= number_format($p->harga, 0, ',', '.'); ?></td>
+                                            <td>Rp. <?= number_format($p->harga_paket, 0, ',', '.'); ?></td>
                                             <td><?php echo date('d F Y', strtotime($p->tanggal_pesan)); ?></td>
                                             <td><?php echo date('d F Y', strtotime($p->tanggal_bayar)); ?></td>
                                             <td><?= $p->hp_jemaah ?></td>

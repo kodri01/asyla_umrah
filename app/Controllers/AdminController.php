@@ -24,7 +24,8 @@ class AdminController extends BaseController
         $data = [
             'title' => 'Admin Data Jemaah',
             'judul' => 'Data Jemaah',
-            'jemaah' => $this->jemaahModel->getJemaahWithPaketName()
+            'jemaah' => $this->jemaahModel->getJemaahWithPaketName(),
+            'rombongan' => $this->rombonganModel->rombonganJemaah()
         ];
         return view('pages/admin/jemaah/admin_data_jemaah', $data);
     }
@@ -34,7 +35,8 @@ class AdminController extends BaseController
         $data = [
             'title' => 'Admin Details Jemaah',
             'judul' => 'Biodata Jemaah',
-            'profile' => $this->jemaahModel->getJemaahDetails($id)
+            'profile' => $this->jemaahModel->getJemaahDetails($id),
+            'rombongan' => $this->jemaahModel->rombongan_jemaah($id),
         ];
         return view('pages/admin/jemaah/admin_details_jemaah', $data);
     }
@@ -171,7 +173,8 @@ class AdminController extends BaseController
         $data = [
             'title' => 'Admin Pembayaran',
             'judul' => 'Data Pembayaran',
-            'bayar' => $this->pembayaranModel->getPembayaranWithJemaah()
+            'bayar' => $this->pembayaranModel->getPembayaranWithJemaah(),
+            'rombongan' => $this->rombonganModel->rombonganJemaah()
         ];
         return view('pages/admin/pembayaran/admin_pembayaran', $data);
     }
@@ -301,10 +304,13 @@ class AdminController extends BaseController
 
     public function laporan_pembayaran()
     {
+
         $data = [
             'title' => 'Admin Laporan Pembayaran',
             'judul' => 'Laporan Pembayaran',
-            'status' => $this->jemaahModel->getJemaahWithPaketBayar()
+            'status' => $this->jemaahModel->getJemaahWithPaketBayar(),
+            'rombongan' => $this->rombonganModel->rombonganJemaah()
+
         ];
         return view('pages/admin/laporan/admin_laporan_pembayaran', $data);
     }
@@ -315,17 +321,21 @@ class AdminController extends BaseController
         $data = [
             'title' => 'Admin Laporan Pembayaran',
             'judul' => 'Laporan Pembayaran',
-            'cetak' => $this->jemaahModel->cetak_pembayaran($id)
+            'cetak' => $this->jemaahModel->cetak_pembayaran($id),
+            'rombongan' => $this->jemaahModel->rombongan_jemaah($id),
+
         ];
         return view('pages/admin/laporan/print_pembayaran', $data);
     }
 
     public function laporan_bulanan()
     {
+
         $data = [
             'title' => 'Admin Laporan Bulanan',
             'judul' => 'Laporan Bulanan',
-            'jemaah' => $this->jemaahModel->getJemaahBulanan()
+            'jemaah' => $this->jemaahModel->getJemaahBulanan(),
+            'rombongan' => $this->rombonganModel->rombonganJemaah()
 
         ];
         return view('pages/admin/laporan/admin_laporan_bulanan', $data);
@@ -334,7 +344,9 @@ class AdminController extends BaseController
     public function cetak_bulanan()
     {
         $data = [
-            'jemaah' => $this->jemaahModel->getJemaahBulanan()
+            'jemaah' => $this->jemaahModel->getJemaahBulanan(),
+            'rombongan' => $this->rombonganModel->rombonganJemaah()
+
         ];
         return view('pages/admin/laporan/print_bulanan', $data);
     }
@@ -344,7 +356,9 @@ class AdminController extends BaseController
         $data = [
             'title' => 'Admin Laporan Tahunan',
             'judul' => 'Laporan Tahunan',
-            'jemaah' => $this->jemaahModel->getJemaahTahunan()
+            'jemaah' => $this->jemaahModel->getJemaahTahunan(),
+            'rombongan' => $this->rombonganModel->rombonganJemaah()
+
         ];
         return view('pages/admin/laporan/admin_laporan_tahunan', $data);
     }
@@ -352,7 +366,9 @@ class AdminController extends BaseController
     public function cetak_tahunan()
     {
         $data = [
-            'jemaah' => $this->jemaahModel->getJemaahTahunan()
+            'jemaah' => $this->jemaahModel->getJemaahTahunan(),
+            'rombongan' => $this->rombonganModel->rombonganJemaah()
+
         ];
         return view('pages/admin/laporan/print_tahunan', $data);
     }

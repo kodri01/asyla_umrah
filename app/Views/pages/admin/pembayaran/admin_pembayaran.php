@@ -8,13 +8,16 @@
         <h1 class="h3 mb-0 text-gray-800"><?php echo $judul ?></h1>
     </div>
 
-    <input type="search" name="search" id="" placeholder="Masukan Nama Jemaah">
-    <a class="mb-2 mt-2 btn btn-sm btn-success" href="#"><i class="fas fa-plus"></i>Cari Data</a>
     <?php if (session()->getFlashdata('pesan')) : ?>
         <div class="alert alert-success" role="alert">
             <?= session()->getFlashdata('pesan'); ?>
         </div>
     <?php endif; ?>
+
+    <form class="d-flex mb-3">
+        <input type="search" autocomplete="off" name="search" id="searchInput" class="form-control me-2 w-50" placeholder="Masukan Nama Jemaah">
+        <a class="btn btn-success" href="#" id="searchButton"><i class="fas fa-plus"></i>Cari Data</a>
+    </form>
     <table class="table table-bordered table-striped">
         <tr>
             <th class="text-center">No</th>
@@ -31,7 +34,15 @@
             <?php foreach ($bayar as $p) : ?>
                 <td><?= $no++ ?></td>
                 <td><?php echo date('d F Y', strtotime($p->created_at)); ?></td>
-                <td class="text-capitalize"><?= $p->nama_jemaah; ?></td>
+                <td class="text-capitalize"><?= $p->nama_jemaah; ?><br>
+                    <?php foreach ($rombongan as $rom) : ?>
+                        <?php if ($rom->id_jemaah == $p->id_user) : ?>
+                            <?= $rom->nama_anggota; ?><br>
+                        <?php else : ?>
+                            <p></p>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </td>
                 <td>Rp. <?= number_format($p->jml_bayar, 0, ',', '.'); ?></td>
                 <td> <?php echo ($p->sisa_bayar == 0) ? "Rp. 0" : "Rp. " . number_format($p->sisa_bayar, 0, ',', '.'); ?>
                 </td>
@@ -72,6 +83,32 @@
     </table>
 
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+
+        searchButton.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const searchText = searchInput.value.trim().toLowerCase();
+            const rows = document.querySelectorAll('table tr');
+
+            for (const row of rows) {
+                const namaCell = row.querySelector('td:nth-child(3)'); // Kolom Nama
+
+                if (namaCell) {
+                    const nama = namaCell.textContent.trim().toLowerCase();
+                    if (nama.includes(searchText)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                }
+            }
+        });
+    });
+</script>
 
 
 <?= $this->endSection(); ?>

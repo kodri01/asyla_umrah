@@ -15,7 +15,7 @@ class PembayaranModel extends Model
     {
         $builder = $this->db->table('tb_pembayaran');
         $builder->join('tb_jemaah', 'tb_pembayaran.id_user = tb_jemaah.id_user');
-        $builder->select('tb_pembayaran.*, tb_jemaah.nama as nama_jemaah, tb_pembayaran.status as status_bayar');
+        $builder->select('tb_pembayaran.*, tb_jemaah.nama_jemaah as nama_jemaah, tb_pembayaran.status as status_bayar');
         $builder->where('tb_pembayaran.deleted_at IS NULL');
         $query = $builder->get();
         return $query->getResult();

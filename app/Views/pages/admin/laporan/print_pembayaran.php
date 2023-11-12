@@ -91,11 +91,21 @@
                 <tbody>
                     <tr>
                         <td>Nama</td>
-                        <td>: <?= $cetak->nama ?></td>
+                        <td>: <?= $cetak->nama_jemaah ?>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td rowspan="1"></td>
+                        <td>
+                            <?php foreach ($rombongan as $rom) : ?>
+                                &nbsp; <?= $rom->nama_anggota ?><br>
+                            <?php endforeach; ?>
+                        </td>
                     </tr>
                     <tr>
                         <td>Jenis Kelamin</td>
-                        <td>: <?= $cetak->jns_kelamin ?></td>
+                        <td>: <?= $cetak->jk_jemaah ?></td>
                     </tr>
                     <tr>
                         <td>Tempat Lahir</td>

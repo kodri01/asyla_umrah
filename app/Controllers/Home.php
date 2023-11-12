@@ -23,9 +23,19 @@ class Home extends BaseController
                 'jemaah' => $this->jemaahModel->totalJemaah(),
                 'paket' => $this->paketModel->totalPaket(),
                 'pembayaran' => $this->pembayaranModel->totalPembayaran(),
-                'status' => $this->jemaahModel->getJemaahWithPaketBayar()
+                'status' => $this->jemaahModel->getJemaahWithPaketBayar(),
+                'rombongan' => $this->rombonganModel->rombonganJemaah()
             ];
             return view('pages/admin/dashboard/admin_dashboard', $data);
+        }
+
+        if (in_groups('direktur')) {
+            $data = [
+                'title' => 'Direktur Data Jemaah',
+                'judul' => 'Data Jemaah',
+                'jemaah' => $this->jemaahModel->getJemaahWithPaketName()
+            ];
+            return view('pages/admin/jemaah/admin_data_jemaah', $data);
         }
 
         $data = [

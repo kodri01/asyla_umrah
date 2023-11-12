@@ -113,7 +113,15 @@
                     ?>
                             <tr>
                                 <td><?= date('Y', strtotime($item->created_at)); ?></td>
-                                <td><?= $item->nama ?></td>
+                                <td class="text-capitalize"><?= $item->nama_jemaah ?><br>
+                                    <?php foreach ($rombongan as $rom) : ?>
+                                        <?php if ($rom->id_jemaah == $item->id_user) : ?>
+                                            <?= $rom->nama_anggota; ?><br>
+                                        <?php else : ?>
+                                            <p></p>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </td>
                                 <td><?= $item->tipe; ?></td>
                                 <td><?= date('d F Y', strtotime($item->tgl_berangkat)); ?></td>
                                 <td><?= date('d F Y', strtotime($item->tgl_kembali)); ?></td>
@@ -130,7 +138,15 @@
                         ?>
                             <tr>
                                 <td><?= date('Y', strtotime($item->created_at)); ?></td>
-                                <td><?= $item->nama ?></td>
+                                <td class="text-capitalize"><?= $item->nama_jemaah ?><br>
+                                    <?php foreach ($rombongan as $rom) : ?>
+                                        <?php if ($rom->id_jemaah == $item->id_user) : ?>
+                                            <?= $rom->nama_anggota; ?><br>
+                                        <?php else : ?>
+                                            <p></p>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </td>
                                 <td><?= $item->tipe; ?></td>
                                 <td><?= date('d F Y', strtotime($item->tgl_berangkat)); ?></td>
                                 <td><?= date('d F Y', strtotime($item->tgl_kembali)); ?></td>

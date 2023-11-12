@@ -115,10 +115,18 @@
                     ?>
                             <tr>
                                 <td><?= date('d F Y', strtotime($item->created_at)); ?></td>
-                                <td><?= $item->nama ?></td>
-                                <td><?= $item->jns_kelamin; ?></td>
+                                <td class="text-capitalize"><?= $item->nama_jemaah ?><br>
+                                    <?php foreach ($rombongan as $rom) : ?>
+                                        <?php if ($rom->id_jemaah == $item->id_user) : ?>
+                                            <?= $rom->nama_anggota; ?><br>
+                                        <?php else : ?>
+                                            <p></p>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </td>
+                                <td class="text-capitalize"><?= $item->jk_jemaah; ?></td>
                                 <td><?= $item->hp_jemaah; ?></td>
-                                <td><?= $item->tipe; ?></td>
+                                <td class="text-capitalize"><?= $item->tipe; ?></td>
                                 <td><?= date('d F Y', strtotime($item->tgl_berangkat)); ?></td>
                                 <td><?= date('d F Y', strtotime($item->tgl_kembali)); ?></td>
                             </tr>
@@ -137,8 +145,16 @@
                         ?>
                             <tr>
                                 <td><?= date('d F Y', strtotime($item->created_at)); ?></td>
-                                <td><?= $item->nama ?></td>
-                                <td><?= $item->jns_kelamin; ?></td>
+                                <td class="text-capitalize"><?= $item->nama_jemaah ?><br>
+                                    <?php foreach ($rombongan as $rom) : ?>
+                                        <?php if ($rom->id_jemaah == $item->id_user) : ?>
+                                            <?= $rom->nama_anggota; ?><br>
+                                        <?php else : ?>
+                                            <p></p>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </td>
+                                <td><?= $item->jk_jemaah; ?></td>
                                 <td><?= $item->hp_jemaah; ?></td>
                                 <td><?= $item->tipe; ?></td>
                                 <td><?= date('d F Y', strtotime($item->tgl_berangkat)); ?></td>

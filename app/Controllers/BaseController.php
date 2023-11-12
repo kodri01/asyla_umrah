@@ -30,6 +30,7 @@ abstract class BaseController extends Controller
     protected $auth;
     protected $session;
     protected $validation;
+    protected $rombonganModel;
     /**
      * Instance of the main Request object.
      *
@@ -66,6 +67,7 @@ abstract class BaseController extends Controller
         $this->jemaahModel = new \App\Models\JemaahModel();
         $this->testimoniModel = new \App\Models\TestimoniModel();
         $this->pembayaranModel = new \App\Models\PembayaranModel();
+        $this->rombonganModel = new \App\Models\RombonganModel();
         $this->galeriModel = new \App\Models\GaleriModel();
         $this->auth = new \Myth\Auth\Models\UserModel();
         $this->validation = \Config\Services::validation();

@@ -13,14 +13,14 @@
 
                 <div class="from-group">
                     <label>Keterangan Foto</label>
-                    <input type="text" name="keterangan" class="form-control">
+                    <input type="text" autocomplete="off" name="keterangan" class="form-control">
                     <?php if (session()->has('errors')) : ?>
-                    <?php foreach (session('errors') as $error) : ?>
-                    <?php if (strpos($error, 'keterangan') !== false) : ?>
+                        <?php foreach (session('errors') as $error) : ?>
+                            <?php if (strpos($error, 'keterangan') !== false) : ?>
 
-                    <div style="color: red;"><?php echo $error; ?></div>
-                    <?php endif; ?>
-                    <?php endforeach; ?>
+                                <div style="color: red;"><?php echo $error; ?></div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
                 <div class="from-group">

@@ -35,6 +35,7 @@ $routes->set404Override();
 $routes->get('/', 'Home::index');
 
 
+
 //guest
 $routes->get('/asyla/profil', 'AsylaUmrah::profil');
 $routes->get('/asyla/kontak', 'AsylaUmrah::kontak');
@@ -64,8 +65,8 @@ $routes->post('/asyla/save_testimoni/(:num)', 'AsylaUmrah::save_testimoni/$1', [
 
 // // ROUTE KHUSUS ADMIN
 // // route data jemaah
-$routes->get('/admin/data_jemaah', 'AdminController::data_jemaah', ['filter' => 'role:admin']);
-$routes->get('/admin/jemaah/details/(:num)', 'AdminController::details_jemaah/$1', ['filter' => 'role:admin']);
+$routes->get('/admin/data_jemaah', 'AdminController::data_jemaah', ['filter' => 'role:admin,direktur']);
+$routes->get('/admin/jemaah/details/(:num)', 'AdminController::details_jemaah/$1', ['filter' => 'role:admin,direktur']);
 $routes->delete('/admin/jemaah/(:num)', 'AdminController::delete_jemaah/$1', ['filter' => 'role:admin']);
 $routes->post('/admin/jemaah/update/(:num)', 'AdminController::update_jemaah/$1', ['filter' => 'role:admin']);
 
@@ -95,15 +96,13 @@ $routes->get('/admin/testimoni', 'AdminController::testimoni', ['filter' => 'rol
 $routes->delete('/admin/testi/(:num)', 'AdminController::delete_testimoni/$1', ['filter' => 'role:admin']);
 
 
-// route laporan
-$routes->get('/admin/laporan_pembayaran', 'AdminController::laporan_pembayaran', ['filter' => 'role:admin']);
-$routes->get('/admin/cetak_pembayaran/(:num)', 'AdminController::cetak_pembayaran/$1', ['filter' => 'role:admin']);
-$routes->get('/admin/laporan_bulanan', 'AdminController::laporan_bulanan', ['filter' => 'role:admin']);
-$routes->get('/admin/cetak_bulanan', 'AdminController::cetak_bulanan', ['filter' => 'role:admin']);
-$routes->get('/admin/laporan_tahunan', 'AdminController::laporan_tahunan', ['filter' => 'role:admin']);
-$routes->get('/admin/cetak_tahunan', 'AdminController::cetak_tahunan', ['filter' => 'role:admin']);
-
-
+// route laporan admin
+$routes->get('/admin/laporan_pembayaran', 'AdminController::laporan_pembayaran', ['filter' => 'role:admin,direktur']);
+$routes->get('/admin/cetak_pembayaran/(:num)', 'AdminController::cetak_pembayaran/$1', ['filter' => 'role:admin,direktur']);
+$routes->get('/admin/laporan_bulanan', 'AdminController::laporan_bulanan', ['filter' => 'role:admin,direktur']);
+$routes->get('/admin/cetak_bulanan', 'AdminController::cetak_bulanan', ['filter' => 'role:admin,direktur']);
+$routes->get('/admin/laporan_tahunan', 'AdminController::laporan_tahunan', ['filter' => 'role:admin,direktur']);
+$routes->get('/admin/cetak_tahunan', 'AdminController::cetak_tahunan', ['filter' => 'role:admin,direktur']);
 
 /*
  * --------------------------------------------------------------------
